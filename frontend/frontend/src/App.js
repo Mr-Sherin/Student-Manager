@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Add from "./components/Add";
-import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
 import View from "./components/view";
 
 const apiBaseUrl = "http://localhost:3000";
@@ -11,6 +11,19 @@ function App() {
   const [values, setValues] = useState({ sname: "", sage: "", splace: "" });
   const [editingId, setEditingId] = useState(null);
   const [message, setMessage] = useState("Connect the form to the backend CRUD API.");
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme : "light";
+  });
+  const [activeTab, setActiveTab] = useState("view");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   const loadStudents = async () => {
     try {
@@ -51,6 +64,7 @@ function App() {
 
       setValues({ sname: "", sage: "", splace: "" });
       setEditingId(null);
+      setActiveTab("view");
       setMessage(editingId ? "Student updated successfully." : "Student added successfully.");
       loadStudents();
     } catch (error) {
@@ -65,6 +79,7 @@ function App() {
       sage: String(student.sage ?? ""),
       splace: student.splace ?? "",
     });
+    setActiveTab("add");
     setMessage("Editing the selected student.");
   };
 
@@ -81,26 +96,52 @@ function App() {
   };
 
   return (
-    <div className="app-shell">
-      <Navbar />
+    <div className="app-shell dashboard-layout" data-theme={theme}>
+      <Sidebar 
+        theme={theme} 
+        toggleTheme={toggleTheme} 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        totalRecords={students.length}
+      />
 
-      <main className="app-shell__main">
+      <main className="main-content">
         <section className="hero">
-          <p className="hero__eyebrow">Frontend connected to MongoDB CRUD API</p>
-          <h2>Manage student records from one screen.</h2>
-          <p className="hero__message">{message}</p>
+          <div className="hero__text">
+            <p className="hero__eyebrow">Student Management System</p>
+            <h2>Dashboard</h2>
+            <p className="hero__message">{message}</p>
+          </div>
+          <div className="hero__widget">
+            <div className="widget__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div className="widget__data">
+              <h3>{students.length}</h3>
+              <p>Total Records</p>
+            </div>
+          </div>
         </section>
 
-        <div className="layout-grid">
-          <Add
-            values={values}
-            onChange={handleChange}
-            onSubmit={handleSubmit}
-            title={editingId ? "Update student" : "Add student"}
-            submitLabel={editingId ? "Update student" : "Save student"}
-          />
+        <div className="tab-content">
+          {activeTab === "add" && (
+            <Add
+              values={values}
+              onChange={handleChange}
+              onSubmit={handleSubmit}
+              title={editingId ? "Update student" : "Add new student"}
+              submitLabel={editingId ? "Update student" : "Save student"}
+            />
+          )}
 
-          <View students={students} onEdit={handleEdit} onDelete={handleDelete} />
+          {activeTab === "view" && (
+            <View students={students} onEdit={handleEdit} onDelete={handleDelete} />
+          )}
         </div>
       </main>
     </div>
