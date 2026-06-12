@@ -5,5 +5,5 @@ var studentSchema = mongoose.Schema({
     splace : String
 });
 
-var studentModel = mongoose.model("student", studentSchema);
+var studentModel = mongoose.model("people", studentSchema, "people");
 export default studentModel;

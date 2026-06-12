@@ -1,0 +1,204 @@
+.app-shell,
+.app-shell *,
+.app-shell *::before,
+.app-shell *::after {
+  box-sizing: border-box;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 32px;
+  color: #f5f7fb;
+  background:
+    radial-gradient(circle at top left, rgba(101, 136, 255, 0.28), transparent 30%),
+    radial-gradient(circle at top right, rgba(25, 195, 170, 0.22), transparent 26%),
+    linear-gradient(180deg, #0b1020 0%, #10172e 52%, #0d1325 100%);
+}
+
+.app-shell__main {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin: 28px 0 32px;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  background: rgba(10, 14, 28, 0.72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.hero__eyebrow {
+  margin: 0 0 10px;
+  color: #8ad7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+}
+
+.hero h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.hero__message {
+  margin: 12px 0 0;
+  color: rgba(245, 247, 251, 0.78);
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 20px 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 14, 28, 0.7);
+  backdrop-filter: blur(18px);
+}
+
+.navbar__eyebrow,
+.panel__eyebrow {
+  margin: 0 0 8px;
+  color: #8ad7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+}
+
+.navbar h1,
+.panel__header h2 {
+  margin: 0;
+}
+
+.navbar p,
+.panel__header p {
+  margin: 8px 0 0;
+  color: rgba(245, 247, 251, 0.74);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.navbar__links a,
+.student-form__submit,
+.student-table__actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: #08101f;
+  background: linear-gradient(135deg, #8ad7ff, #8fffd7);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.panel {
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(9, 13, 25, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.student-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+  justify-items: stretch;
+}
+
+.student-form__field {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.student-form__field span {
+  font-size: 0.95rem;
+  color: rgba(245, 247, 251, 0.8);
+}
+
+.student-form__field input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 14px 16px;
+  color: #f5f7fb;
+  background: rgba(255, 255, 255, 0.04);
+  outline: none;
+}
+
+.student-form__field input::placeholder {
+  color: rgba(245, 247, 251, 0.38);
+}
+
+.student-form__submit {
+  width: 100%;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.student-table th,
+.student-table td {
+  padding: 14px 10px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.student-table th {
+  color: #8ad7ff;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.student-table__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.student-table__actions button {
+  padding: 8px 14px;
+}
+
+.empty-state {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  color: rgba(245, 247, 251, 0.72);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 960px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
